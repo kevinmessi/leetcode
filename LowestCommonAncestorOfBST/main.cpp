@@ -13,28 +13,19 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q)
     return root;
 }
 
-TreeNode* lowestCommonAncesto2r(TreeNode* root, TreeNode* p, TreeNode* q)
+TreeNode* lowestCommonAncestor2(TreeNode* root, TreeNode* p, TreeNode* q)
 {
-    if(!root || !p || !q) return NULL;
-    TreeNode* ans = root;
-    TreeNode* r = root;
-    TreeNode* k = root;
-    while(r != p || k != q)
+    if (!p || !q) return NULL;
+    while (root)
     {
-        if(p->val < r->val)
-            r = r->left;
-        else if(p->val > r->val)
-            r = r->right;
-        if(q->val < k->val)
-            k = k->left;
-        else if( q->val > k->val)
-            k = k->right;
-        if(r == k)
-            ans = r;
+        if (root->val > p->val && root->val > q->val)
+            root = root->left;
+        else if (root->val < p->val && root->val < q->val)
+            root = root->right;
         else
             break;
     }
-    return ans;
+    return root;
 }
 
 int main()
