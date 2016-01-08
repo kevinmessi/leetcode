@@ -1,17 +1,27 @@
+#include "../toolkit/data_structure.h"
 #include <iostream>
 
 using namespace std;
 
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
-
 ListNode* rotateRight(ListNode* head, int k)
 {
-
+    if (head == NULL) return NULL;
+    ListNode *node = head;
+    int len = 1;
+    while (node->next)
+    {
+        ++len;
+        node = node->next;
+    }
+    k %= len;
+    node->next = head;
+    for (int i = 0; i < len - k; ++i)
+    {
+        node = node->next;
+    }
+    head = node->next;
+    node->next = NULL;
+    return head;
 }
 
 int main()
