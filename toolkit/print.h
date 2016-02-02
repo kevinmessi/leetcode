@@ -10,7 +10,7 @@ void PrintVector(std::vector<T> v)
     int l = v.size();
     for(int i = 0;i < l;i++)
     {
-        std::cout << v[i] << "\n";
+        std::cout << v[i] << " ";
     }
     std::cout << std::endl;
 }
