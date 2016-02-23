@@ -2,6 +2,7 @@
 #define DATA_STRUCTURE_H
 
 #include <stddef.h>
+#include <vector>
 
 struct ListNode
 {
@@ -16,6 +17,20 @@ struct TreeNode
     TreeNode *left;
     TreeNode *right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+struct TreeLinkNode
+{
+    int val;
+    TreeLinkNode *left, *right, *next;
+    TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+};
+
+struct UndirectedGraphNode
+{
+    int label;
+    std::vector<UndirectedGraphNode *> neighbors;
+    UndirectedGraphNode(int x) : label(x) {}
 };
 
 #endif
