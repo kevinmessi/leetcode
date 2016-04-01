@@ -62,7 +62,7 @@ int largestRectangleArea2(vector<int> &heights)
 int largestRectangleArea(vector<int> &heights)
 {
     int area = 0, len = heights.size(), cur = 1;
-    vector<int> s(len + 1, 0);
+    vector<int> s(len + 2, 0);
     s[0] = -1;
     for (int i = 1; i <= len; ++i)
     {
