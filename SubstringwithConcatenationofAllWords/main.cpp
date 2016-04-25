@@ -9,16 +9,20 @@ using namespace std;
 vector<int> findSubstring1(string s, vector<string> &words)
 {
     vector<int> indices;
-    unordered_map<string, int> table;
+    unordered_map<string, int> dict;
     for (string &word : words)
-        ++table[word];
+        ++dict[word];
     int n = s.length(), m = words.size(), len = words[0].length(), window = m * len;
     for (int i = 0; i + window <= n; ++i)
     {
         int counter = m;
-        unordered_map<string, int> map = table;
+        unordered_map<string, int> table;
         for (int j = 0; j < m; ++j)
-            if (map[s.substr(i + j * len, len)]-- > 0) --counter;
+        {
+            string str = s.substr(i + j * len, len);
+            if (dict.find(str) == dict.end()) break;
+            if (table[str]++ < dict[str]) --counter;
+        }
         if (counter == 0)
             indices.push_back(i);
     }
