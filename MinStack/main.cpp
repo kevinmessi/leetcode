@@ -4,9 +4,13 @@
 
 using namespace std;
 
-class MinStack2
+class MinStack1
 {
 public:
+    MinStack1()
+    {
+    }
+
     void push(int x)
     {
         s_.push(x);
@@ -34,7 +38,7 @@ private:
     stack<int> min_;
 };
 
-class MinStack
+class MinStack2
 {
 public:
     struct ListNode
@@ -44,13 +48,13 @@ public:
         ListNode(int x) : val(x), next(NULL) {}
     };
 
-    MinStack()
+    MinStack2()
     {
         s_ = NULL;
         min_ = NULL;
     }
 
-    ~MinStack()
+    ~MinStack2()
     {
         ListNode *list = s_;
         ListNode *tmp;
@@ -109,6 +113,50 @@ public:
 private:
     ListNode *s_;
     ListNode *min_;
+};
+
+class MinStack
+{
+public:
+    MinStack()
+    {
+    }
+
+    void push(int x)
+    {
+        if (s_.empty())
+        {
+            min_ = x;
+            s_.push(0);
+        }
+        else
+        {
+            s_.push(x - min_);
+            if (x < min_) min_ = x;
+        }
+    }
+
+    void pop()
+    {
+        long long gap = s_.top();
+        s_.pop();
+        if (gap < 0) min_ -= gap;
+    }
+
+    int top()
+    {
+        long long gap = s_.top();
+        return int(min_ + (gap < 0 ? 0 : gap));
+    }
+
+    int getMin()
+    {
+        return int(min_);
+    }
+
+private:
+    stack<long long> s_;
+    long long min_;
 };
 
 int main()
