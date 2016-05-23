@@ -5,9 +5,9 @@
 
 using namespace std;
 
-bool greater(vector<int> &nums1, vector<int> &nums2)
+bool is_greater(vector<int> &nums1, int i, vector<int> &nums2, int j)
 {
-    int i = 0, j = 0, len1 = nums1.size(), len2 = nums2.size();
+    int len1 = nums1.size(), len2 = nums2.size();
     for (; i < len1 && j < len2 && nums1[i] == nums2[j]; ++i, ++j)
         ;
     return i < len1 && (j == len2 || nums1[i] > nums2[j]);
@@ -29,11 +29,22 @@ void merge(vector<int> &nums1, vector<int> &nums2, vector<int> &output)
 {
     int len1 = nums1.size(), len2 = nums2.size();
     output.resize(len1 + len2);
+    for (int i = 0, j = 0, kk = 0; i < len1 || j < len2; ++kk)
+        output[kk] = is_greater(nums1, i, nums2, j) ? nums1[i++] : nums2[j++];
 }
 
 vector<int> maxNumber(vector<int> &nums1, vector<int> &nums2, int k)
 {
-    vector<int> number;
+    int len1 = nums1.size(), len2 = nums2.size();
+    vector<int> number, candidate, max1, max2;
+    for (int i = max(0, k - len2); i <= k && i <= len1; ++i)
+    {
+        maxNumber(nums1, i, max1);
+        maxNumber(nums2, k - i, max2);
+        merge(max1, max2, candidate);
+        if (is_greater(candidate, 0, number, 0))
+            number = candidate;
+    }
     return number;
 }
 
